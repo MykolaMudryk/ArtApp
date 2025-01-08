@@ -1,8 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kotlin.compose) // Додайте, якщо у вас є alias для Compose
-    id("kotlin-kapt") // Додано для Room
+    alias(libs.plugins.kotlin.compose)
+    id("kotlin-kapt")
 }
 
 android {
@@ -96,8 +96,8 @@ dependencies {
     implementation("io.coil-kt:coil-compose:2.4.0")
 
     // Room
-    implementation("androidx.room:room-runtime:2.5.0")
-    implementation("androidx.room:room-ktx:2.5.0")
+    implementation("androidx.room:room-runtime:2.5.2")
+    implementation("androidx.room:room-ktx:2.5.2")
     kapt("androidx.room:room-compiler:2.5.0")
 
     // Lifecycle ViewModel та LiveData

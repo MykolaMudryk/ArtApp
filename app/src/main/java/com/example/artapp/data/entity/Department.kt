@@ -4,12 +4,12 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
-@Entity
+@Entity(tableName = "department")
 data class Department(
     @PrimaryKey
     @SerializedName("departmentId")
     val departmentId: Int,
 
-    @SerializedName(" v")
+    @SerializedName("displayName")
     val displayName: String
 )

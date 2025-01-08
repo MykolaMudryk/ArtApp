@@ -8,9 +8,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.artapp.data.entity.ArtObject
-import coil.compose.rememberImagePainter
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import coil.compose.rememberAsyncImagePainter
 
 @Composable
 fun ArtList(
@@ -43,7 +43,7 @@ fun ArtObjectItem(
         Row(modifier = Modifier.padding(16.dp)) {
             artObject.imageUrl?.let { url ->
                 Image(
-                    painter = rememberImagePainter(url),
+                    painter = rememberAsyncImagePainter(url),
                     contentDescription = artObject.title,
                     modifier = Modifier
                         .size(80.dp)

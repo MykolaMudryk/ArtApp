@@ -26,7 +26,7 @@ fun CategoryCard(
         ) {
             Column {
                 Text(
-                    text = department.name,
+                    text = department.displayName,
                     style = MaterialTheme.typography.h6
                 )
                 Spacer(modifier = Modifier.height(4.dp))

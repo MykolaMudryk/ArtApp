@@ -22,7 +22,7 @@ class CategoriesScreenViewModel(
     private fun fetchCategories() {
         viewModelScope.launch {
             val fetchedCategories = artRepository.getAllCategories()
-            _categories.update { fetchedCategories ?: emptyList() }
+            _categories.update { fetchedCategories }
         }
     }
 }

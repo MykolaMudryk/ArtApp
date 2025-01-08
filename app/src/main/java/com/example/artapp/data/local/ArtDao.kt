@@ -11,8 +11,8 @@ import com.example.artapp.data.entity.Department
 @Dao
 interface ArtDao {
 
-    @Query("SELECT * FROM art_objects WHERE objectId = :objectId")
-    suspend fun getArtObjectById(objectId: Int): ArtObject
+    @Query("SELECT * FROM art_objects WHERE objectID = :objectId")
+    suspend fun getArtObjectById(objectId: Int): ArtObject?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertArtObject(artObject: ArtObject): Long
@@ -27,7 +27,7 @@ interface ArtDao {
     suspend fun deleteAllArtObjects(): Int
 
     @Query("SELECT * FROM department_objects WHERE departmentId = :departmentId")
-    suspend fun getObjectsForDepartment(departmentId: Int): DepartmentObjects
+    suspend fun getObjectsForDepartment(departmentId: Int): List<DepartmentObjects>?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertDepartmentObjects(departmentObjects: DepartmentObjects)

@@ -26,11 +26,13 @@ class MainViewModel(
             _isLoading.value = true
             try {
                 val searchResponse = artRepository.searchArtObjects(query)
-                if (searchResponse != null && !searchResponse.objectIDs.isNullOrEmpty()) {
+
+                // Безпечний виклик для перевірки на null
+                if (!searchResponse?.objectIDs.isNullOrEmpty()) {
                     val artList = mutableListOf<ArtObject>()
-                    for (id in searchResponse.objectIDs.take(10)) {
-                        val artObject = artRepository.getArtObjectById(id)
-                        if (artObject != null) {
+                    // Якщо searchResponse не null і objectIDs не пустий
+                    for (id in searchResponse!!.objectIDs.take(10)) {
+                        artRepository.getArtObjectById(id)?.let { artObject ->
                             artList.add(artObject)
                         }
                     }
@@ -45,4 +47,5 @@ class MainViewModel(
             }
         }
     }
+
 }

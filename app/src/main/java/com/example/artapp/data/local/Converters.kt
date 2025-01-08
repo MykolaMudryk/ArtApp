@@ -1,19 +1,28 @@
 package com.example.artapp.data.local
 
-
-import androidx.room.TypeConverter;
+import androidx.room.TypeConverter
+import com.example.artapp.data.entity.Department
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
 class Converters {
 
-    // Конвертація списку Int у JSON-рядок
+    @TypeConverter
+    fun fromDepartmentList(departmentList: List<Department>?): String? {
+        return Gson().toJson(departmentList)
+    }
+
+    @TypeConverter
+    fun toDepartmentList(departmentListJson: String?): List<Department>? {
+        val type = object : TypeToken<List<Department>>() {}.type
+        return Gson().fromJson(departmentListJson, type)
+    }
+
     @TypeConverter
     fun fromList(list: List<Int>?): String? {
         return Gson().toJson(list)
     }
 
-    // Конвертація JSON-рядка у список Int
     @TypeConverter
     fun toList(data: String?): List<Int>? {
         if (data == null) return emptyList()

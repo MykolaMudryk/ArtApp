@@ -1,5 +1,3 @@
-// com/example/artapp/ui/screens/searchScreen/SearchScreen.kt
-
 package com.example.artapp.ui.screens.searchScreen
 
 import androidx.compose.foundation.background
@@ -12,7 +10,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import com.example.artapp.data.entity.ArtObject
 import com.example.artapp.ui.components.ArtList
@@ -23,8 +20,10 @@ fun SearchScreen(
     viewModel: SearchViewModel = koinViewModel(),
     onArtObjectClick: (ArtObject) -> Unit
 ) {
-    var searchQuery by remember { mutableStateOf(TextFieldValue("")) }
+    // Використовуємо query з ViewModel
+    val query by viewModel.query.collectAsState()
 
+    // Використовуємо інші стани з ViewModel
     val searchResults by viewModel.searchResults.collectAsState()
     val isLoading by viewModel.isLoading.collectAsState()
     val errorMessage by viewModel.errorMessage.collectAsState()
@@ -43,9 +42,12 @@ fun SearchScreen(
                         .padding(horizontal = 8.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
+                    // Тепер використовуємо query з ViewModel для збереження значення
                     TextField(
-                        value = searchQuery.text,
-                        onValueChange = { query -> searchQuery = TextFieldValue(query) },
+                        value = query,
+                        onValueChange = { newQuery ->
+                            viewModel.updateQuery(newQuery)  // Оновлюємо query через ViewModel
+                        },
                         placeholder = {
                             Text("Search art...", color = Color.White.copy(alpha = 0.6f))
                         },
@@ -56,7 +58,7 @@ fun SearchScreen(
                         singleLine = true,
                         keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Search),
                         keyboardActions = KeyboardActions(onSearch = {
-                            viewModel.performSearch()
+                            viewModel.performSearch() // Запуск пошуку
                         }),
                         colors = TextFieldDefaults.textFieldColors(
                             backgroundColor = Color.Transparent,

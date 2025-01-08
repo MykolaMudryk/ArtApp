@@ -5,7 +5,6 @@ package com.example.artapp.repository
 import com.example.artapp.data.entity.ArtObject
 import com.example.artapp.data.entity.Department
 import com.example.artapp.data.entity.DepartmentObjects
-import com.example.artapp.data.entity.AllDepartments
 import com.example.artapp.data.entity.SearchResponse
 import com.example.artapp.data.local.ArtDao
 import com.example.artapp.data.server.ArtApiService
@@ -41,7 +40,7 @@ class ArtRepository(
 
         val response = apiService.getObjectsForDepartment(departmentId)
         return@withContext if (response.isSuccessful) {
-            response.body()?.also { artDao.insertDepartmentObjects(departmentId, it) }
+            response.body()?.also { artDao.insertDepartmentObjects(it) }
         } else {
             null
         }
